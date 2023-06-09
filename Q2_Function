@@ -1,0 +1,39 @@
+2a) So, from looking at column B, everything is a 3 character combination. By calling them x,y,z, we are able to see that
+The first character in the output string corresponds to the first character in the input string.
+The second character in the output string is determined by the position of the input number in sequence
+The second character has a range: 'c', 'm', 'X', 'c', 't', 'P', 'M', 'G', 'v', 'z', 'A', 'Z', 'y', 'T', 'N', 'o', 'd', 'm', 'w', 'n', 'V'.
+The third character in the output string seems to depend on the position of the input number relative to a certain threshold value. After which it cycles, before which, it is a constant
+The threshold appears to be around 50000.
+Above the threshold, the third character cycles through the characters 'g', 'N', 'M', 'K', 'G', 'V', 'y', 'T', 'N', 'm'.
+Below the threshold, the third character remains constant as 'c'.
+
+2b)f(30001) = cGp
+f(55555) = MUk
+f(77788) = ocd
+
+2c) Upper limit is 50000
+
+2d) #include <stdio.h>
+
+char f(int Ai) {
+    char characters[] = "cmXctPMGvzAZyTNodmw";
+    int threshold = 50000;
+    int position = (Ai % 20) + 1;
+    
+    if (Ai > threshold) {
+        return characters[position - 1] + (Ai - threshold) % 10;
+    }
+    else {
+        return characters[position - 1];
+    }
+}
+
+int main() {
+    int input = 15840;
+    char result = f(input);
+    
+    printf("%c\n", result);
+    
+    return 0;
+}
+
